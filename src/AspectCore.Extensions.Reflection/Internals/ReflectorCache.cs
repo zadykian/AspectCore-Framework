@@ -7,6 +7,8 @@ namespace AspectCore.Extensions.Reflection
     {
         internal static volatile Options CurrentOptions = Options.Enabled;
 
+        public static Options GetOptions() => CurrentOptions;
+
         public static void SetOptions(Options options)
             => CurrentOptions = options ?? throw new ArgumentNullException(nameof(options));
 
