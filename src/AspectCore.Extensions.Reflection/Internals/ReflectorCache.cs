@@ -21,6 +21,7 @@ namespace AspectCore.Extensions.Reflection
             ReflectorCacheUtils<Pair<PropertyInfo, CallOptions>, PropertyReflector>.Clear();
             ReflectorCacheUtils<Pair<MethodInfo, CallOptions>, MethodReflector>.Clear();
             ReflectorCacheUtils<TypeInfo, TypeReflector>.Clear();
+            MethodExtensions.ClearCache();
         }
 
         public sealed class Options

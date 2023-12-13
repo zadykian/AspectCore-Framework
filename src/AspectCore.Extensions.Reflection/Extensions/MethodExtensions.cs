@@ -41,5 +41,7 @@ namespace AspectCore.Extensions.Reflection
                  return null;
              });
         }
+
+        internal static void ClearCache() => dictionary.Clear();
     }
 }

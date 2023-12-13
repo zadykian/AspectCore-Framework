@@ -14,5 +14,7 @@ namespace AspectCore.DynamicProxy
         {
             return detectorCache.GetOrAdd(context, tuple => next(context));
         }
+
+        public void ClearCache() => detectorCache.Clear();
     }
 }
