@@ -5,15 +5,6 @@ using System.Runtime.CompilerServices;
 
 namespace AspectCore.Extensions.Reflection
 {
-    public sealed class ReflectorCacheOptions
-    {
-        public readonly bool Enabled;
-
-        public ReflectorCacheOptions(bool enabled) => Enabled = enabled;
-
-        public static volatile ReflectorCacheOptions Value = new ReflectorCacheOptions(enabled: true);
-    }
-
     internal static class ReflectorCacheUtils<TMemberInfo, TReflector>
     {
         private static readonly ConcurrentDictionary<TMemberInfo, TReflector> dictionary
@@ -21,9 +12,11 @@ namespace AspectCore.Extensions.Reflection
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static TReflector GetOrAdd(TMemberInfo key, Func<TMemberInfo, TReflector> factory)
-            => ReflectorCacheOptions.Value.Enabled
+            => ReflectorCache.CurrentOptions.IsEnabled
                 ? dictionary.GetOrAdd(key, factory)
                 : factory(key);
+
+        internal static void Clear() => dictionary.Clear();
     }
 
     internal static class ReflectorFindUtils
